@@ -2,6 +2,7 @@
 {% load i18n admin_urls %}
 
 {% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} delete-confirmation{% endblock %}
+{% load url from suit_compat %}
 
 {% block breadcrumbs %}
   <ol class="breadcrumb">

@@ -2,11 +2,11 @@ import copy
 from django.conf import settings
 from django.contrib.admin import ModelAdmin
 from django.contrib.admin.views.main import ChangeList
-from django.contrib.contenttypes import generic
-from django.forms import ModelForm, NumberInput
+from django.forms import ModelForm
 from django.contrib import admin
 from django.db import models
-from suit.widgets import SuitSplitDateTimeWidget
+from suit.widgets import NumberInput, SuitSplitDateTimeWidget
+from suit.compat import ct_admin
 
 
 class SortableModelAdminBase(object):
@@ -64,7 +64,7 @@ class SortableTabularInline(SortableTabularInlineBase, admin.TabularInline):
 
 
 class SortableGenericTabularInline(SortableTabularInlineBase,
-                                   generic.GenericTabularInline):
+                                   ct_admin.GenericTabularInline):
     pass
 
 
@@ -92,6 +92,15 @@ class SortableStackedInlineBase(SortableModelAdminBase):
                     continue
 
                 fields = line.get('fields')
+
+                # Some use tuples for fields however they are immutable
+                if isinstance(fields, tuple):
+                    raise AssertionError(
+                        "The fields attribute of your Inline is a tuple. "
+                        "This must be list as we may need to modify it and "
+                        "tuples are immutable."
+                    )
+
                 if self.sortable in fields:
                     fields.remove(self.sortable)
 
@@ -118,7 +127,7 @@ class SortableStackedInline(SortableStackedInlineBase, admin.StackedInline):
 
 
 class SortableGenericStackedInline(SortableStackedInlineBase,
-                                   generic.GenericStackedInline):
+                                   ct_admin.GenericStackedInline):
     pass
 
 
