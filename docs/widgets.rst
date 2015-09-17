@@ -25,26 +25,6 @@ For example if you want to add some additional CSS class to input you can do fol
 .. note:: If you define some custom fields for your form, you must specify ``model = YourModel`` parameter for ``class Meta``.
 
 
-NumberInput
------------
-
-HTML5 number input ``type="number"``::
-
-  from django.forms import ModelForm
-  from suit.widgets import NumberInput
-
-  class OrderForm(ModelForm):
-      class Meta:
-          widgets = {
-              'count': NumberInput,
-
-              # Optionally you specify attrs too
-              'count': NumberInput(attrs={'class': 'input-mini'})
-
-          }
-
-.. note:: The same result you can achieve with ``HTML5Input(input_type='number')`` widget, this is just a shortcut.
-
 HTML5Input
 ----------
 

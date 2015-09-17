@@ -1,16 +1,12 @@
 from django.test import TestCase
 from suit.widgets import LinkedSelect, HTML5Input, EnclosedInput, \
-    NumberInput, SuitDateWidget, SuitTimeWidget, SuitSplitDateTimeWidget, \
+    SuitDateWidget, SuitTimeWidget, SuitSplitDateTimeWidget, \
     AutosizedTextarea
 from django.utils.translation import ugettext as _
 from django.contrib.admin.templatetags.admin_static import static
 
 
 class WidgetsTestCase(TestCase):
-    def test_NumberInput(self):
-        inp = NumberInput()
-        self.assertEqual('number', inp.input_type)
-
     def test_HTML5Input(self):
         input_type = 'calendar'
         inp = HTML5Input(input_type=input_type)
